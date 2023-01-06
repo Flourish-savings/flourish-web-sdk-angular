@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import { Endpoint } from './utils/endpoint'
 
 @Component({
   selector: 'flourish-web-sdk-angular',
   template: `
     <iframe 
-      [src]="trustedUrl"
+      [src]="iframeUrl"
       width="100%" 
       height="100%">
     </iframe>
@@ -15,12 +16,20 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 })
 export class FlourishWebSdkAngularComponent {
 
-  url: string;
-  trustedUrl: SafeResourceUrl;
+  partnerId: String;
+  partnerSecret: String;
+  environment: Environment;
+  language: Language;
+  _endpoint: Endpoint;
+  iframeUrl: SafeResourceUrl;
 
-  constructor(private sanitizer: DomSanitizer) {
-    this.url = "https://flourish-app-stg.flourishfi.com/?token=eyJhbGciOiJIUzI1NiJ9.eyJjbGllbnRfaWQiOjUsInVzZXJfaWQiOjI0OTcsImV4cCI6MTY3MzEyMTc3NH0.6k6acMk3ZvEuZkeKnIQFzYqX7QtYjrxeiCAF8G8RBG0";
-    this.trustedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
+  constructor(partnerId: String, partnerSecret: String, environment: Environment, language: Language, private sanitizer: DomSanitizer) {
+    this.partnerId = partnerId;
+    this.partnerSecret = partnerSecret;
+    this.environment = environment;
+    this.language = language;
+    this._endpoint = new Endpoint(environment, language);
+    this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this._endpoint.frontend);
   }
 
 }
