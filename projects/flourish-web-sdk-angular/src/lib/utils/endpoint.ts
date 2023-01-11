@@ -1,3 +1,6 @@
+import { Environment } from "../enums/environment.enum";
+import { Language } from "../enums/language.enum";
+
 export class Endpoint {
 
     environment: Environment;
@@ -39,7 +42,7 @@ export class Endpoint {
         }
 
         if (this.language !== undefined && this.language !== null) {
-            langPath = Object.values(this.language);
+            langPath = this.language;
         } else {
             langPath = '';
         }

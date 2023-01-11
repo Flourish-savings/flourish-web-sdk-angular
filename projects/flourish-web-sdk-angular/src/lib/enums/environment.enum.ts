@@ -1,5 +1,20 @@
-enum Environment {
+export enum Environment {
+    DEVELOPMENT = "development",
     Development = "development",
+    development = "development",
+    DEV = "development",
+    Dev = "development",
+    dev = "development",
+    STAGING = "staging",
     Staging = "staging",
-    Production = "production"
+    staging = "staging",
+    STG = "staging",
+    Stg = "staging",
+    stg = "staging",
+    PRODUCTION = "production",
+    Production = "production",
+    production = "production",
+    PRD = "production",
+    Prd = "production",
+    prd = "production"
 }
