@@ -4,6 +4,7 @@ import { Environment } from './enums/environment.enum';
 import { Language } from './enums/language.enum';
 import { Endpoint } from './utils/endpoint'
 import { Observable } from 'rxjs';
+import { AuthenticateResponse } from './authenticate-response';
 
 @Injectable({
   providedIn: 'root'
@@ -29,17 +30,14 @@ export class FlourishWebSdkAngularService {
     this._endpoint = endpoint;
   }
 
-  authenticate(): Observable<{access_token: String}> {
+  authenticate(): Observable<AuthenticateResponse> {
+    const url = `${this._endpoint.backend}/access_token`;
     const body = {
         "partner_uuid": this.partnerId,
         "partner_secret": this.partnerSecret,
         "customer_code": this.customerCode
     };
-    
-    return this.httpClient.post<{access_token: String}> (
-      this._endpoint.backend + "/access_token", 
-      body
-    );
-  }
 
+    return this.httpClient.post<AuthenticateResponse>(url, body);
+  }
 }

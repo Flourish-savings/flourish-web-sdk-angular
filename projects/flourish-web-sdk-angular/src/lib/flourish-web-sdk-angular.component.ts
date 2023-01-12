@@ -9,17 +9,16 @@ import { Endpoint } from './utils/endpoint';
   selector: 'flourish-web-sdk-angular',
   templateUrl: './flourish-web-sdk-angular.component.html',
   providers: [ FlourishWebSdkAngularService ],
-  styles: [
-  ]
+  styles: [ ]
 })
 export class FlourishWebSdkAngularComponent implements OnInit {
 
   @Input() partnerId: String = '';
   @Input() partnerSecret: String = '';
   @Input() customerCode: String = '';
-  @Input() environment: String = 'STAGING';
-  @Input() language: String = 'ENGLISH';
-  _endpoint: Endpoint = new Endpoint((<any>Environment)[this.environment as string], (<any>Language)[this.language as string]);
+  @Input() environment: Environment = Environment.STAGING;
+  @Input() language: Language = Language.ENGLISH;
+  _endpoint: Endpoint = new Endpoint(this.environment, this.language);
   iframeUrl: SafeResourceUrl | undefined;
 
   constructor(private flourishWebSdkAngularService: FlourishWebSdkAngularService, private sanitizer: DomSanitizer) {}
@@ -30,8 +29,8 @@ export class FlourishWebSdkAngularComponent implements OnInit {
       this.partnerId,
       this.partnerSecret,
       this.customerCode,
-      (<any>Environment)[this.environment as string],
-      (<any>Language)[this.language as string],
+      this.environment,
+      this.language,
       this._endpoint
     );
 
