@@ -1,3 +1,6 @@
+import { Environment } from "../enums/environment.enum";
+import { Language } from "../enums/language.enum";
+
 export class Endpoint {
 
     environment: Environment;
@@ -9,14 +12,12 @@ export class Endpoint {
         this.environment = environment;
         this.language = language;
         this._backendUrlMapper = new Map<Environment, String>([
-            [Environment.Production, "https://api.flourishsavings.com/api/v1"],
-            [Environment.Staging, "https://staging.flourishsavings.com/api/v1"],
-            [Environment.Development, "http://localhost:3000/api/v1"]
+            [Environment.PRODUCTION, "https://api.flourishsavings.com/api/v1"],
+            [Environment.STAGING, "https://staging.flourishsavings.com/api/v1"]
         ]);
         this._frontendUrlMapper = new Map<Environment, String>([
-            [Environment.Production, "https://flourish-app.flourishfi.com"],
-            [Environment.Staging, "https://flourish-app-stg.flourishfi.com"],
-            [Environment.Development, "http://localhost:3000"]
+            [Environment.PRODUCTION, "https://flourish-app.flourishfi.com"],
+            [Environment.STAGING, "https://flourish-app-stg.flourishfi.com"]
         ]);
     }
 
@@ -24,7 +25,7 @@ export class Endpoint {
         if (this._backendUrlMapper.get(this.environment)) {
             return this._backendUrlMapper.get(this.environment);
         }
-        return this._backendUrlMapper.get(Environment.Staging);
+        return this._backendUrlMapper.get(Environment.STAGING);
     }
 
     get frontend(): string {
@@ -35,11 +36,11 @@ export class Endpoint {
         if (this._frontendUrlMapper.get(this.environment)) {
             baseUrl = this._frontendUrlMapper.get(this.environment);
         } else {
-            baseUrl = this._frontendUrlMapper.get(Environment.Staging);
+            baseUrl = this._frontendUrlMapper.get(Environment.STAGING);
         }
 
         if (this.language !== undefined && this.language !== null) {
-            langPath = Object.values(this.language);
+            langPath = this.language;
         } else {
             langPath = '';
         }

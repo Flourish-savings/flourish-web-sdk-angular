@@ -1,35 +1,43 @@
-import { Component } from '@angular/core';
-import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
-import { Endpoint } from './utils/endpoint'
+import { Component, Input, OnInit } from '@angular/core';
+import { FlourishWebSdkAngularService } from './flourish-web-sdk-angular.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Environment } from './enums/environment.enum';
+import { Language } from './enums/language.enum';
+import { Endpoint } from './utils/endpoint';
 
 @Component({
   selector: 'flourish-web-sdk-angular',
-  template: `
-    <iframe 
-      [src]="iframeUrl"
-      width="100%" 
-      height="100%">
-    </iframe>
-  `,
-  styles: [
-  ]
+  templateUrl: './flourish-web-sdk-angular.component.html',
+  providers: [ FlourishWebSdkAngularService ],
+  styles: [ ]
 })
-export class FlourishWebSdkAngularComponent {
+export class FlourishWebSdkAngularComponent implements OnInit {
 
-  partnerId: String;
-  partnerSecret: String;
-  environment: Environment;
-  language: Language;
-  _endpoint: Endpoint;
-  iframeUrl: SafeResourceUrl;
+  @Input() partnerId: String = '';
+  @Input() partnerSecret: String = '';
+  @Input() customerCode: String = '';
+  @Input() environment: Environment = Environment.STAGING;
+  @Input() language: Language = Language.ENGLISH;
+  _endpoint: Endpoint = new Endpoint(this.environment, this.language);
+  iframeUrl: SafeResourceUrl | undefined;
 
-  constructor(partnerId: String, partnerSecret: String, environment: Environment, language: Language, private sanitizer: DomSanitizer) {
-    this.partnerId = partnerId;
-    this.partnerSecret = partnerSecret;
-    this.environment = environment;
-    this.language = language;
-    this._endpoint = new Endpoint(environment, language);
-    this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this._endpoint.frontend);
+  constructor(private flourishWebSdkAngularService: FlourishWebSdkAngularService, private sanitizer: DomSanitizer) {}
+
+  ngOnInit(): void {
+
+    this.flourishWebSdkAngularService.initialize(
+      this.partnerId,
+      this.partnerSecret,
+      this.customerCode,
+      this.environment,
+      this.language,
+      this._endpoint
+    );
+
+    this.flourishWebSdkAngularService.authenticate()
+                                      .subscribe((response) => { 
+                                        this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${this._endpoint.frontend}?token=${response.access_token}`) 
+                                      });
   }
 
 }

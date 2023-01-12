@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Environment, Language } from 'flourish-web-sdk-angular';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'flourish-web-sdk-angular-example';
+
+  sdkEnvironment: Environment = Environment.STAGING;
+  sdkLanguage: Language = Language.ENGLISH;
+  
+  constructor() {}
+
 }

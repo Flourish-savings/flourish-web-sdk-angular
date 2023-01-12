@@ -1,5 +1,5 @@
-enum Language {
-    English = "en",
-    Spanish = "es",
-    Portuguese = "pt"
+export enum Language {
+    ENGLISH = "en",
+    SPANISH = "es",
+    PORTUGUESE = "pt"
 }
