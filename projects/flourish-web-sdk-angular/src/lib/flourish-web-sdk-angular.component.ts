@@ -9,7 +9,7 @@ import { Endpoint } from './utils/endpoint';
   selector: 'flourish-web-sdk-angular',
   templateUrl: './flourish-web-sdk-angular.component.html',
   providers: [ FlourishWebSdkAngularService ],
-  styles: [ ]
+  styleUrls: ['./flourish-web-sdk-angular.component.scss']
 })
 export class FlourishWebSdkAngularComponent implements OnInit {
 
