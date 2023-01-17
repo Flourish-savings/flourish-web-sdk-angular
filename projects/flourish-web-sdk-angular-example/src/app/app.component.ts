@@ -1,16 +1,36 @@
-import { Component } from '@angular/core';
-import { Environment, Language } from 'flourish-web-sdk-angular';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { SafeResourceUrl } from '@angular/platform-browser';
+import { Environment, Language, FlourishWebSdkAngularComponent } from 'flourish-web-sdk-angular';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  providers: [FlourishWebSdkAngularComponent]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  sdkEnvironment: Environment = Environment.STAGING;
-  sdkLanguage: Language = Language.ENGLISH;
+  iframeUrl: SafeResourceUrl | undefined;
   
-  constructor() {}
+  constructor(private flourishWebSdkAngularComponent: FlourishWebSdkAngularComponent) {}
+
+  ngOnInit(): void {
+
+    this.flourishWebSdkAngularComponent.initialize(
+      "HERE_YOU_WILL_USE_YOUR_PARTNER_ID",
+      "HERE_YOU_WILL_USE_YOUR_PARTNER_SECRET",
+      "HERE_YOU_WILL_USE_YOUR_CUSTOMER_CODE",
+      Environment.STAGING,
+      Language.ENGLISH
+    ).subscribe((iframeFlourish): void => { this.iframeUrl = iframeFlourish });
+
+  }
+
+  @HostListener('window:message', ['$event'])
+  onMessage(event: any) {
+    console.log(event.data);
+    return event.data;
+    // this.receiveMessage(event);
+  }
 
 }

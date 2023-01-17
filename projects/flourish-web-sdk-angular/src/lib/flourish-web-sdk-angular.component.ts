@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FlourishWebSdkAngularService } from './flourish-web-sdk-angular.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Environment } from './enums/environment.enum';
 import { Language } from './enums/language.enum';
 import { Endpoint } from './utils/endpoint';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'flourish-web-sdk-angular',
@@ -11,33 +12,33 @@ import { Endpoint } from './utils/endpoint';
   providers: [ FlourishWebSdkAngularService ],
   styles: [ ]
 })
-export class FlourishWebSdkAngularComponent implements OnInit {
+export class FlourishWebSdkAngularComponent {
 
-  @Input() partnerId: String = '';
-  @Input() partnerSecret: String = '';
-  @Input() customerCode: String = '';
-  @Input() environment: Environment = Environment.STAGING;
-  @Input() language: Language = Language.ENGLISH;
-  _endpoint: Endpoint = new Endpoint(this.environment, this.language);
-  iframeUrl: SafeResourceUrl | undefined;
+  @Input() iframeUrl: SafeResourceUrl | undefined;
 
   constructor(private flourishWebSdkAngularService: FlourishWebSdkAngularService, private sanitizer: DomSanitizer) {}
 
-  ngOnInit(): void {
+  initialize(partnerId: String, partnerSecret: String, customerCode: String, environment: Environment, language: Language): Observable<SafeResourceUrl> {
+
+    const _endpoint: Endpoint = new Endpoint(environment, language);
+    var subject = new Subject<SafeResourceUrl>();
 
     this.flourishWebSdkAngularService.initialize(
-      this.partnerId,
-      this.partnerSecret,
-      this.customerCode,
-      this.environment,
-      this.language,
-      this._endpoint
+      partnerId,
+      partnerSecret,
+      customerCode,
+      environment,
+      language,
+      _endpoint
     );
 
     this.flourishWebSdkAngularService.authenticate()
-                                      .subscribe((response) => { 
-                                        this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${this._endpoint.frontend}?token=${response.access_token}`) 
+                                      .subscribe((response) => {
+                                        subject.next(this.sanitizer.bypassSecurityTrustResourceUrl(`${_endpoint.frontend}?token=${response.access_token}`));
                                       });
+
+    return subject.asObservable();
+
   }
 
 }
