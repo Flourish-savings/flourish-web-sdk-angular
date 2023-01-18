@@ -17,14 +17,13 @@ export class FlourishWebSdkAngularService {
   environment: Environment = Environment.STAGING;
   language: Language = Language.ENGLISH;
   _endpoint: Endpoint = new Endpoint(this.environment, this.language);
-  accessToken: String = '';
 
   constructor(private httpClient: HttpClient) { }
 
   initialize(partnerId: String, partnerSecret: String, customerCode: String, environment: Environment, language: Language, endpoint: Endpoint) {
     this.partnerId = partnerId;
     this.partnerSecret = partnerSecret;
-    this.customerCode = customerCode;
+    this.customerCode = customerCode; 
     this.environment = environment;
     this.language = language;
     this._endpoint = endpoint;
