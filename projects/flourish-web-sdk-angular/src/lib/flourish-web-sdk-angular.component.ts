@@ -1,10 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { FlourishWebSdkAngularService } from './flourish-web-sdk-angular.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Environment } from './enums/environment.enum';
 import { Language } from './enums/language.enum';
 import { Endpoint } from './utils/endpoint';
 import { Observable, Subject } from 'rxjs';
+import { PaymentEvent } from './events/payment-event';
+import { EventCreator } from './events/event-creator';
 
 @Component({
   selector: 'flourish-web-sdk-angular',
@@ -15,6 +17,7 @@ import { Observable, Subject } from 'rxjs';
 export class FlourishWebSdkAngularComponent {
 
   @Input() iframeUrl: SafeResourceUrl | undefined;
+  @Output() onPaymentEvent = new EventEmitter<PaymentEvent>();
 
   constructor(private flourishWebSdkAngularService: FlourishWebSdkAngularService, private sanitizer: DomSanitizer) {}
 
@@ -39,6 +42,16 @@ export class FlourishWebSdkAngularComponent {
 
     return subject.asObservable();
 
+  }
+
+  @HostListener('window:message', ['$event'])
+  onMessage(event: any) {
+
+    const eventCreated = EventCreator.createObject(event.data);
+
+    if (eventCreated instanceof PaymentEvent) {
+      this.onPaymentEvent.emit(eventCreated);
+    }
   }
 
 }

@@ -7,3 +7,4 @@ export * from './lib/flourish-web-sdk-angular.component';
 export * from './lib/flourish-web-sdk-angular.module';
 export * from './lib/enums/environment.enum';
 export * from './lib/enums/language.enum';
+export * from './lib/events/payment-event';
