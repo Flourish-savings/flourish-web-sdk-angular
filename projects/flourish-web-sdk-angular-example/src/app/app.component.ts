@@ -1,6 +1,6 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
-import { Environment, Language, FlourishWebSdkAngularComponent } from 'flourish-web-sdk-angular';
+import { Environment, Language, FlourishWebSdkAngularComponent, PaymentEvent } from 'flourish-web-sdk-angular';
 
 @Component({
   selector: 'app-root',
@@ -26,11 +26,8 @@ export class AppComponent implements OnInit {
 
   }
 
-  @HostListener('window:message', ['$event'])
-  onMessage(event: any) {
-    console.log(event.data);
-    return event.data;
-    // this.receiveMessage(event);
+  onPayment(paymentEvent: PaymentEvent): void {
+    console.log(`Event name: ${paymentEvent.name}`);
   }
 
 }
