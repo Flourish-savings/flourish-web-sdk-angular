@@ -6,6 +6,10 @@ import { Language } from './enums/language.enum';
 import { Endpoint } from './utils/endpoint';
 import { Observable, Subject } from 'rxjs';
 import { PaymentEvent } from './events/payment-event';
+import { GenericEvent } from './events/generic-event';
+import { AutoPaymentEvent } from './events/auto-payment-event';
+import { TriviaFinishedEvent } from './events/trivia-finished-event';
+import { BackEvent } from './events/back-event';
 import { EventCreator } from './events/event-creator';
 
 @Component({
@@ -17,7 +21,11 @@ import { EventCreator } from './events/event-creator';
 export class FlourishWebSdkAngularComponent {
 
   @Input() iframeUrl: SafeResourceUrl | undefined;
+  @Output() onGenericEvent = new EventEmitter<GenericEvent>();
+  @Output() onAutoPaymentEvent = new EventEmitter<AutoPaymentEvent>();
   @Output() onPaymentEvent = new EventEmitter<PaymentEvent>();
+  @Output() onTriviaFinishedEvent = new EventEmitter<TriviaFinishedEvent>();
+  @Output() onBackEvent = new EventEmitter<BackEvent>();
 
   constructor(private flourishWebSdkAngularService: FlourishWebSdkAngularService, private sanitizer: DomSanitizer) {}
 
@@ -49,9 +57,22 @@ export class FlourishWebSdkAngularComponent {
 
     const eventCreated = EventCreator.createObject(event.data);
 
-    if (eventCreated instanceof PaymentEvent) {
+    if (eventCreated instanceof AutoPaymentEvent) {
+      this.onAutoPaymentEvent.emit(eventCreated);
+    }
+    else if (eventCreated instanceof PaymentEvent) {
       this.onPaymentEvent.emit(eventCreated);
     }
+    else if (eventCreated instanceof TriviaFinishedEvent) {
+      this.onTriviaFinishedEvent.emit(eventCreated);
+    }
+    else if (eventCreated instanceof BackEvent) {
+      this.onBackEvent.emit(eventCreated);
+    }
+    else {
+      this.onGenericEvent.emit(eventCreated);
+    }
+    
   }
 
 }

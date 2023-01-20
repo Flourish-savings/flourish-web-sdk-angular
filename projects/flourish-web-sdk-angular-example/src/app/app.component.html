@@ -1,4 +1,9 @@
 <flourish-web-sdk-angular
     [iframeUrl]="iframeUrl"
-    (onPaymentEvent)="onPayment($event)">
+    (onGenericEvent)="onGenericEvent($event)"
+    (onAutoPaymentEvent)="onAutoPaymentEvent($event)"
+    (onPaymentEvent)="onPaymentEvent($event)"
+    (onTriviaFinishedEvent)="onTriviaFinishedEvent($event)"
+    (onBackEvent)="onBackEvent($event)"
+    >
 </flourish-web-sdk-angular>
