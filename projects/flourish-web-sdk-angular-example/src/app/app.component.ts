@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
 
   onGenericEvent(genericEvent: GenericEvent): void {
     console.log(`Event name: ${genericEvent.name}`);
-    console.log(`Event data: ${genericEvent.data}`);
+    console.log(`Event data: ${JSON.stringify(genericEvent.data)}`);
   }
 
   onAutoPaymentEvent(autoPaymentEvent: AutoPaymentEvent): void {
