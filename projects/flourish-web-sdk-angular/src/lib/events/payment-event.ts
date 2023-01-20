@@ -1,9 +1,13 @@
-import { Event } from "./event";
+import { IframeMessage } from "./iframe-messages/iframe-message";
 
-export class PaymentEvent extends Event {
+export class PaymentEvent {
 
-    constructor() {
-        super("GoToPayment");
+    name: String | undefined;
+    data: Object | undefined;
+
+    constructor(iframeMessage: IframeMessage) {
+        this.name = iframeMessage.eventName;
+        this.data = iframeMessage.data;
     }
 
 }
