@@ -1,30 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { SafeResourceUrl } from '@angular/platform-browser';
-import { Environment, Language, FlourishWebSdkAngularComponent, AutoPaymentEvent, PaymentEvent, TriviaFinishedEvent, BackEvent, GenericEvent } from 'flourish-web-sdk-angular';
+import { Environment, Language, AutoPaymentEvent, PaymentEvent, TriviaFinishedEvent, BackEvent, GenericEvent, RetryLoginEvent } from 'flourish-web-sdk-angular';
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [FlourishWebSdkAngularComponent]
+  providers: [AppService]
 })
 export class AppComponent implements OnInit {
 
-  iframeUrl: SafeResourceUrl | undefined;
+  environment: Environment = Environment.STAGING;
+  language: Language = Language.ENGLISH;
+  accessToken: String | undefined;
   
-  constructor(private flourishWebSdkAngularComponent: FlourishWebSdkAngularComponent) {}
+  constructor(private appService: AppService) {}
 
   ngOnInit(): void {
-
-    this.flourishWebSdkAngularComponent.initialize(
-      "HERE_YOU_WILL_USE_YOUR_PARTNER_ID",
-      "HERE_YOU_WILL_USE_YOUR_PARTNER_SECRET",
-      "HERE_YOU_WILL_USE_YOUR_CUSTOMER_CODE",
-      Environment.STAGING,
-      Language.ENGLISH
-    ).subscribe((iframeFlourish): void => { this.iframeUrl = iframeFlourish });
-
+    this.appService.getFlourishAccessToken().subscribe((response) => this.accessToken = response.flourishAccessToken);
   }
+
+  
 
   onGenericEvent(genericEvent: GenericEvent): void {
     console.log(`Event name: ${genericEvent.name}`);
@@ -47,6 +43,11 @@ export class AppComponent implements OnInit {
   onBackEvent(backEvent: BackEvent): void {
     console.log(`Event name: ${backEvent.name}`);
     console.log(`Event data: ${JSON.stringify(backEvent.data)}`);
+  }
+
+  onRetryLoginEvent(retryLoginEvent: RetryLoginEvent): void {
+    console.log(`Event name: ${retryLoginEvent.name}`);
+    console.log(`Event data: ${JSON.stringify(retryLoginEvent.data)}`);
   }
 
 }
