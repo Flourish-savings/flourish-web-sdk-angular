@@ -9,6 +9,7 @@ import { AutoPaymentEvent } from './events/auto-payment-event';
 import { TriviaFinishedEvent } from './events/trivia-finished-event';
 import { BackEvent } from './events/back-event';
 import { EventCreator } from './events/event-creator';
+import { RetryLoginEvent } from './events/retry-login-event';
 
 @Component({
   selector: 'flourish-web-sdk-angular',
@@ -26,6 +27,7 @@ export class FlourishWebSdkAngularComponent implements OnChanges {
   @Output() onPaymentEvent = new EventEmitter<PaymentEvent>();
   @Output() onTriviaFinishedEvent = new EventEmitter<TriviaFinishedEvent>();
   @Output() onBackEvent = new EventEmitter<BackEvent>();
+  @Output() onRetryLoginEvent = new EventEmitter<RetryLoginEvent>();
   iframeUrl: SafeResourceUrl | undefined;
 
   constructor(private sanitizer: DomSanitizer) {}
@@ -57,6 +59,9 @@ export class FlourishWebSdkAngularComponent implements OnChanges {
     }
     else if (eventCreated instanceof BackEvent) {
       this.onBackEvent.emit(eventCreated);
+    }
+    else if (eventCreated instanceof RetryLoginEvent) {
+      this.onRetryLoginEvent.emit(eventCreated);
     }
     else {
       this.onGenericEvent.emit(eventCreated);

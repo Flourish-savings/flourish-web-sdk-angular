@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Environment, Language, AutoPaymentEvent, PaymentEvent, TriviaFinishedEvent, BackEvent, GenericEvent } from 'flourish-web-sdk-angular';
+import { Environment, Language, AutoPaymentEvent, PaymentEvent, TriviaFinishedEvent, BackEvent, GenericEvent, RetryLoginEvent } from 'flourish-web-sdk-angular';
 import { AppService } from './app.service';
 
 @Component({
@@ -43,6 +43,11 @@ export class AppComponent implements OnInit {
   onBackEvent(backEvent: BackEvent): void {
     console.log(`Event name: ${backEvent.name}`);
     console.log(`Event data: ${JSON.stringify(backEvent.data)}`);
+  }
+
+  onRetryLoginEvent(retryLoginEvent: RetryLoginEvent): void {
+    console.log(`Event name: ${retryLoginEvent.name}`);
+    console.log(`Event data: ${JSON.stringify(retryLoginEvent.data)}`);
   }
 
 }

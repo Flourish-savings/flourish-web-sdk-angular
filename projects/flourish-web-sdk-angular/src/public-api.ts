@@ -11,3 +11,4 @@ export * from './lib/events/payment-event';
 export * from './lib/events/trivia-finished-event';
 export * from './lib/events/back-event';
 export * from './lib/events/generic-event';
+export * from './lib/events/retry-login-event';
