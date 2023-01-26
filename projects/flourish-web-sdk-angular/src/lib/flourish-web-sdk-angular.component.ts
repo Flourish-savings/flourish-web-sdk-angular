@@ -15,7 +15,7 @@ import { RetryLoginEvent } from './events/retry-login-event';
   selector: 'flourish-web-sdk-angular',
   templateUrl: './flourish-web-sdk-angular.component.html',
   providers: [ ],
-  styles: [ ]
+  styleUrls: ['./flourish-web-sdk-angular.component.scss']
 })
 export class FlourishWebSdkAngularComponent implements OnChanges {
 
