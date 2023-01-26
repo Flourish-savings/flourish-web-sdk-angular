@@ -1,27 +1,78 @@
-# FlourishWebSdkAngular
+[<img width="400" src="https://github.com/Flourish-savings/flourish-web-sdk-angular/blob/main/images/logo_flourish.png?raw=true"/>](https://flourishfi.com)
+# Web SDK for Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
+Everything you need to know to start integrating your Angular application with Flourish
 
-## Development server
+## Getting Started
+The integration with us works as follows, the client will make a call to our [API](https://docs.flourishfi.com/#intro) to authenticates himself, retrieve an access token and pass to our component, given that, the sdk serves to encapsulate and help in loading this webview.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Step 1: Installation
+Start by adding our SDK into your project with the following command: 
 
-## Code scaffolding
+```sh
+npm install flourish-web-sdk-angular
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Add our module into your app's imports, like this:
+```javascript
+import { AppComponent } from './app.component';
+import { FlourishWebSdkAngularModule } from 'flourish-web-sdk-angular'
 
-## Build
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    FlourishWebSdkAngularModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Step 2: Using the SDK
 
-## Running unit tests
+After initialization, it is necessary to retrieve an access token from our [API](https://docs.flourishfi.com/#intro), and we recommend that it be done through a backend because the request needs your credentials and it is good to avoid the harmful environment of the web.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+With your accessToken in hand, it is possible to pass it to the SDK component, along with the desired environment and language, just like this:
 
-## Running end-to-end tests
+```html
+<flourish-web-sdk-angular
+    [accessToken]="accessToken"
+    [environment]="environment"
+    [language]="language"
+    >
+</flourish-web-sdk-angular>
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Step 3: Listening events
 
-## Further help
+You can register for some events to know when something happens within our platform.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+You can listen to a specific already mapped events or an unmapped event.
+
+For example, if you need know when ou Trivia feature finished, you can listen to the "TriviaFinishedEvent", and to do that, you need to create your method to listen and pass it to the SDK component, just like this:
+
+```html
+<flourish-web-sdk-angular
+    [accessToken]="accessToken"
+    [environment]="environment"
+    [language]="language"
+    (onTriviaFinishedEvent)="onTriviaFinishedEvent($event)"
+    >
+</flourish-web-sdk-angular>
+```
+```javascript
+onTriviaFinishedEvent(triviaFinishedEvent: TriviaFinishedEvent): void {
+    console.log(`Event name: ${triviaFinishedEvent.name}`);
+    console.log(`Event data: ${JSON.stringify(triviaFinishedEvent.data)}`);
+}
+```
+You can find our all mapped events [here](https://github.com/Flourish-savings/flourish-web-sdk-angular/tree/main/projects/flourish-web-sdk-angular/src/lib/events).
+
+## Example
+Inside this repository, you have an example app to show how to integrate with us:
+
+https://github.com/Flourish-savings/flourish-web-sdk-angular/tree/main/projects/flourish-web-sdk-angular-example
+<br>
