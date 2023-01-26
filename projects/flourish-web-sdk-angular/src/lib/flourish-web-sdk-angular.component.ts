@@ -1,43 +1,72 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FlourishWebSdkAngularService } from './flourish-web-sdk-angular.service';
+import { Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Environment } from './enums/environment.enum';
 import { Language } from './enums/language.enum';
 import { Endpoint } from './utils/endpoint';
+import { PaymentEvent } from './events/payment-event';
+import { GenericEvent } from './events/generic-event';
+import { AutoPaymentEvent } from './events/auto-payment-event';
+import { TriviaFinishedEvent } from './events/trivia-finished-event';
+import { BackEvent } from './events/back-event';
+import { EventCreator } from './events/event-creator';
+import { RetryLoginEvent } from './events/retry-login-event';
 
 @Component({
   selector: 'flourish-web-sdk-angular',
   templateUrl: './flourish-web-sdk-angular.component.html',
-  providers: [ FlourishWebSdkAngularService ],
+  providers: [ ],
   styleUrls: ['./flourish-web-sdk-angular.component.scss']
 })
-export class FlourishWebSdkAngularComponent implements OnInit {
+export class FlourishWebSdkAngularComponent implements OnChanges {
 
-  @Input() partnerId: String = '';
-  @Input() partnerSecret: String = '';
-  @Input() customerCode: String = '';
   @Input() environment: Environment = Environment.STAGING;
   @Input() language: Language = Language.ENGLISH;
-  _endpoint: Endpoint = new Endpoint(this.environment, this.language);
+  @Input() accessToken: String | undefined;
+  @Output() onGenericEvent = new EventEmitter<GenericEvent>();
+  @Output() onAutoPaymentEvent = new EventEmitter<AutoPaymentEvent>();
+  @Output() onPaymentEvent = new EventEmitter<PaymentEvent>();
+  @Output() onTriviaFinishedEvent = new EventEmitter<TriviaFinishedEvent>();
+  @Output() onBackEvent = new EventEmitter<BackEvent>();
+  @Output() onRetryLoginEvent = new EventEmitter<RetryLoginEvent>();
   iframeUrl: SafeResourceUrl | undefined;
 
-  constructor(private flourishWebSdkAngularService: FlourishWebSdkAngularService, private sanitizer: DomSanitizer) {}
+  constructor(private sanitizer: DomSanitizer) {}
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
 
-    this.flourishWebSdkAngularService.initialize(
-      this.partnerId,
-      this.partnerSecret,
-      this.customerCode,
-      this.environment,
-      this.language,
-      this._endpoint
-    );
+    const accessToken = changes['accessToken'].currentValue;
 
-    this.flourishWebSdkAngularService.authenticate()
-                                      .subscribe((response) => { 
-                                        this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${this._endpoint.frontend}?token=${response.access_token}`) 
-                                      });
+    if (accessToken) {
+      const _endpoint: Endpoint = new Endpoint(this.environment, this.language);
+      this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${_endpoint.frontend}?token=${accessToken}`);
+    }
+
+  }
+
+  @HostListener('window:message', ['$event'])
+  onMessage(event: any) {
+
+    const eventCreated = EventCreator.createObject(event.data);
+
+    if (eventCreated instanceof AutoPaymentEvent) {
+      this.onAutoPaymentEvent.emit(eventCreated);
+    }
+    else if (eventCreated instanceof PaymentEvent) {
+      this.onPaymentEvent.emit(eventCreated);
+    }
+    else if (eventCreated instanceof TriviaFinishedEvent) {
+      this.onTriviaFinishedEvent.emit(eventCreated);
+    }
+    else if (eventCreated instanceof BackEvent) {
+      this.onBackEvent.emit(eventCreated);
+    }
+    else if (eventCreated instanceof RetryLoginEvent) {
+      this.onRetryLoginEvent.emit(eventCreated);
+    }
+    else {
+      this.onGenericEvent.emit(eventCreated);
+    }
+    
   }
 
 }

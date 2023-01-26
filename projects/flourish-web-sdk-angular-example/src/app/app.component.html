@@ -1,7 +1,11 @@
-<flourish-web-sdk-angular 
-    partnerId="HERE_YOU_WILL_USE_YOUR_PARTNER_ID"
-    partnerSecret="HERE_YOU_WILL_USE_YOUR_PARTNER_SECRET"
-    customerCode="HERE_YOU_WILL_USE_YOUR_CUSTOMER_CODE"
-    [environment]="sdkEnvironment"
-    [language]="sdkLanguage">
+<flourish-web-sdk-angular
+    [accessToken]="accessToken"
+    [environment]="environment"
+    [language]="language"
+    (onGenericEvent)="onGenericEvent($event)"
+    (onAutoPaymentEvent)="onAutoPaymentEvent($event)"
+    (onPaymentEvent)="onPaymentEvent($event)"
+    (onTriviaFinishedEvent)="onTriviaFinishedEvent($event)"
+    (onBackEvent)="onBackEvent($event)"
+    >
 </flourish-web-sdk-angular>

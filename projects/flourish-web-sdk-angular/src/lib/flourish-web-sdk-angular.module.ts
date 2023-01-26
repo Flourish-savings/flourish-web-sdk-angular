@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { FlourishWebSdkAngularComponent } from './flourish-web-sdk-angular.component';
-import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
@@ -8,8 +7,7 @@ import { CommonModule } from '@angular/common';
     FlourishWebSdkAngularComponent
   ],
   imports: [
-    CommonModule,
-    HttpClientModule,
+    CommonModule
   ],
   exports: [
     FlourishWebSdkAngularComponent
