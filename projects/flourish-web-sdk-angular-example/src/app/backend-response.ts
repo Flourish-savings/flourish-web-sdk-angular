@@ -1,3 +1,3 @@
 export interface BackendResponse {
-    flourishAccessToken: String;
+    flourishAccessToken: string;
 }
