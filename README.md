@@ -31,11 +31,27 @@ import { FlourishWebSdkAngularModule } from 'flourish-web-sdk-angular'
 export class AppModule { }
 ```
 
+After adding our module, it is necessary to retrieve an access token from our [API](https://docs.flourishfi.com/#intro), and we strongly recommend that it be done through a backend because the request needs your credentials and it's good to avoid the harmful environment of the web.
+
+With your `accessToken` in hand, a call must happen to the `initialize` method along with your application initialization, which is required to complete the initialization of our component. Like for example adding in the `onInit` of the `app.component.ts`:
+```javascript
+environment: Environment = Environment.STAGING;
+language: Language = Language.ENGLISH;
+
+constructor(private appService: AppService, private flourishWebSdkAngularComponent: FlourishWebSdkAngularComponent) {}
+
+ngOnInit(): void {
+  this.appService.getFlourishAccessToken()
+    .subscribe((response) => {
+      this.flourishWebSdkAngularComponent.initialize(this.environment, this.language, response.flourishAccessToken);
+      localStorage.setItem('flourishAccessToken', response.flourishAccessToken);
+    });
+}
+```
+
 ### Step 2: Using the SDK
 
-After initialization, it is necessary to retrieve an access token from our [API](https://docs.flourishfi.com/#intro), and we recommend that it be done through a backend because the request needs your credentials and it is good to avoid the harmful environment of the web.
-
-With your accessToken in hand, it is possible to pass it to the SDK component, along with the desired environment and language, just like this:
+Then, after having initialized, it's possible to use SDK component, along with the desired environment and language, just like this:
 
 ```html
 <flourish-web-sdk-angular

@@ -11,7 +11,7 @@ import { AppService } from './app.service';
 export class AppComponent implements OnInit {
 
   environment: Environment = Environment.STAGING;
-  language: Language = Language.SPANISH;
+  language: Language = Language.ENGLISH;
   
   constructor(private appService: AppService, private flourishWebSdkAngularComponent: FlourishWebSdkAngularComponent) {}
 
