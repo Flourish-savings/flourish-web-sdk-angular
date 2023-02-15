@@ -68,7 +68,7 @@ You can register for some events to know when something happens within our platf
 
 You can listen to a specific already mapped events or an unmapped event.
 
-For example, if you need know when ou Trivia feature finished, you can listen to the "TriviaFinishedEvent", and to do that, you need to create your method to listen and pass it to the SDK component, just like this:
+For example, if you need know when our Trivia feature finished, you can listen to the "TriviaFinishedEvent", and to do that, you need to create your method to listen and pass it to the SDK component, just like this:
 
 ```html
 <flourish-web-sdk-angular
