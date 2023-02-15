@@ -3,12 +3,12 @@ import { Language } from "../enums/language.enum";
 
 export class Endpoint {
 
-    environment: Environment;
-    language: Language;
+    environment: Environment | undefined;
+    language: Language | undefined;
     private _backendUrlMapper: Map<Environment, String>;
     private _frontendUrlMapper: Map<Environment, String>;
 
-    constructor(environment: Environment, language: Language) {
+    constructor(environment: Environment | undefined, language: Language | undefined) {
         this.environment = environment;
         this.language = language;
         this._backendUrlMapper = new Map<Environment, String>([
@@ -22,14 +22,19 @@ export class Endpoint {
     }
 
     get backend(): String | undefined {
+        if (!this.environment) {
+            return;
+        }
         if (this._backendUrlMapper.get(this.environment)) {
             return this._backendUrlMapper.get(this.environment);
         }
         return this._backendUrlMapper.get(Environment.STAGING);
     }
 
-    get frontend(): string {
-
+    get frontend(): string | undefined {
+        if (!this.environment) {
+            return;
+        }
         let baseUrl;
         let langPath;
 

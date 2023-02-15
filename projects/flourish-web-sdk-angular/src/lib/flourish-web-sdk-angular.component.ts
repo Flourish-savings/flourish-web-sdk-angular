@@ -10,35 +10,40 @@ import { TriviaFinishedEvent } from './events/trivia-finished-event';
 import { BackEvent } from './events/back-event';
 import { EventCreator } from './events/event-creator';
 import { RetryLoginEvent } from './events/retry-login-event';
+import { FlourishWebSdkAngularService } from './flourish-web-sdk-angular.service';
 
 @Component({
   selector: 'flourish-web-sdk-angular',
   templateUrl: './flourish-web-sdk-angular.component.html',
-  providers: [ ],
+  providers: [ FlourishWebSdkAngularService ],
   styleUrls: ['./flourish-web-sdk-angular.component.scss']
 })
 export class FlourishWebSdkAngularComponent implements OnChanges {
-
-  @Input() environment: Environment = Environment.STAGING;
-  @Input() language: Language = Language.ENGLISH;
-  @Input() accessToken: String | undefined;
+  
+  @Input() environment: Environment | undefined;
+  @Input() language: Language | undefined;
+  @Input() accessToken: String | null | undefined;
   @Output() onGenericEvent = new EventEmitter<GenericEvent>();
   @Output() onAutoPaymentEvent = new EventEmitter<AutoPaymentEvent>();
   @Output() onPaymentEvent = new EventEmitter<PaymentEvent>();
   @Output() onTriviaFinishedEvent = new EventEmitter<TriviaFinishedEvent>();
   @Output() onBackEvent = new EventEmitter<BackEvent>();
   @Output() onRetryLoginEvent = new EventEmitter<RetryLoginEvent>();
+
   iframeUrl: SafeResourceUrl | undefined;
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(private sanitizer: DomSanitizer, private flourishWebSdkAngularService: FlourishWebSdkAngularService) {}
+
+  initialize(environment: Environment, language: Language, accessToken: String): void {
+    this.flourishWebSdkAngularService.signIn(accessToken, new Endpoint(environment, language)).subscribe((response) => console.log('Flourish SDK initialization', response.message));
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
 
     const accessToken = changes['accessToken'].currentValue;
 
     if (accessToken) {
-      const _endpoint: Endpoint = new Endpoint(this.environment, this.language);
-      this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${_endpoint.frontend}?token=${accessToken}`);
+      this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${new Endpoint(this.environment, this.language).frontend}?token=${accessToken}`);
     }
 
   }

@@ -1,11 +1,12 @@
-<flourish-web-sdk-angular
-    [accessToken]="accessToken"
-    [environment]="environment"
-    [language]="language"
-    (onGenericEvent)="onGenericEvent($event)"
-    (onAutoPaymentEvent)="onAutoPaymentEvent($event)"
-    (onPaymentEvent)="onPaymentEvent($event)"
-    (onTriviaFinishedEvent)="onTriviaFinishedEvent($event)"
-    (onBackEvent)="onBackEvent($event)"
-    >
-</flourish-web-sdk-angular>
+<mat-tab-group id="tab-group" mat-stretch-tabs [headerPosition]="'below'" dynamicHeight>
+    <mat-tab [label]="'Home'"></mat-tab>
+    <mat-tab [label]="'Transfers'"></mat-tab>
+    <mat-tab [label]="'Payment Services'"></mat-tab>
+    <mat-tab [label]="'Rewards'">
+        <rewards    
+            [environment]="environment"
+            [language]="language">
+        </rewards>
+    </mat-tab>
+</mat-tab-group>
+

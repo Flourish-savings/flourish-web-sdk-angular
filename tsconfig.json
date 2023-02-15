@@ -6,6 +6,11 @@
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    // "paths": {
+    //   "flourish-web-sdk-angular": [
+    //     "dist/flourish-web-sdk-angular"
+    //   ]
+    // },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
