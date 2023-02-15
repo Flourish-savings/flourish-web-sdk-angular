@@ -85,8 +85,15 @@ onTriviaFinishedEvent(triviaFinishedEvent: TriviaFinishedEvent): void {
     console.log(`Event data: ${JSON.stringify(triviaFinishedEvent.data)}`);
 }
 ```
-You can find our all mapped events [here](https://github.com/Flourish-savings/flourish-web-sdk-angular/tree/main/projects/flourish-web-sdk-angular/src/lib/events).
+[Here](https://github.com/Flourish-savings/flourish-web-sdk-angular/tree/main/projects/flourish-web-sdk-angular/src/lib/events) you have all events we will return
 
+| Event name      | Description                                                                                                       |
+|-----------------|-------------------------------------------------------------------------------------------------------------------|
+| GoToAutoPayment | When you need to know when the user clicks to set up an automatic payment on our platform.                        |
+| GoToPayment     | When you need to know when the user clicks to set up a payment on our platform.                                   |
+| TriviaFinished  | When you need to know when the user finishes a Trivia game on our platform.                                       |
+| GoBack          | When you need to know when the user clicks on the back menu button on our platform.                               |
+| RetryLogin      | When you need to know when the accessToken has expired and you need to retrieve a new one on our platform.        |
 ## Example
 Inside this repository, you have an example app to show how to integrate with us:
 
