@@ -16,8 +16,8 @@ export class Endpoint {
             [Environment.STAGING, "https://staging.flourishsavings.com/api/v1"]
         ]);
         this._frontendUrlMapper = new Map<Environment, String>([
-            [Environment.PRODUCTION, "https://flourish-app.flourishfi.com"],
-            [Environment.STAGING, "https://flourish-app-stg.flourishfi.com"]
+            [Environment.PRODUCTION, "https://platform.flourishfi.com"],
+            [Environment.STAGING, "https://platform-stg.flourishfi.com"]
         ]);
     }
 
@@ -49,7 +49,7 @@ export class Endpoint {
         } else {
             langPath = '';
         }
-        
-        return `${baseUrl}/${langPath}`;
+
+        return `${baseUrl}?lang=${langPath}`;
     }
 }

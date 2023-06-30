@@ -19,7 +19,7 @@ import { FlourishWebSdkAngularService } from './flourish-web-sdk-angular.service
   styleUrls: ['./flourish-web-sdk-angular.component.scss']
 })
 export class FlourishWebSdkAngularComponent implements OnChanges {
-  
+
   @Input() environment: Environment | undefined;
   @Input() language: Language | undefined;
   @Input() accessToken: String | null | undefined;
@@ -43,7 +43,7 @@ export class FlourishWebSdkAngularComponent implements OnChanges {
     const accessToken = changes['accessToken'].currentValue;
 
     if (accessToken) {
-      this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${new Endpoint(this.environment, this.language).frontend}?token=${accessToken}`);
+      this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${new Endpoint(this.environment, this.language).frontend}&token=${accessToken}`);
     }
 
   }
@@ -71,7 +71,7 @@ export class FlourishWebSdkAngularComponent implements OnChanges {
     else {
       this.onGenericEvent.emit(eventCreated);
     }
-    
+
   }
 
 }

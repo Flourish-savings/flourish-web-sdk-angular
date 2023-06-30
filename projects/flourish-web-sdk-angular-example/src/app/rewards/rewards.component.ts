@@ -10,20 +10,20 @@ export class RewardsComponent implements OnInit {
     @Input() environment: Environment | undefined;
     @Input() language: Language | undefined;
     accessToken: string | null | undefined;
-    
+
     ngOnInit(): void {
-        this.accessToken = localStorage.getItem('accessToken')
+        this.accessToken = localStorage.getItem('flourishAccessToken')
     }
     
     onGenericEvent(genericEvent: GenericEvent): void {
         console.log(`Event name: ${genericEvent.name}`);
         console.log(`Event data: ${JSON.stringify(genericEvent.data)}`);
     }
-    
+
     onAutoPaymentEvent(autoPaymentEvent: AutoPaymentEvent): void {
     console.log(`Event name: ${autoPaymentEvent.name}`);
     }
-    
+
     onPaymentEvent(paymentEvent: PaymentEvent): void {
         console.log(`Event name: ${paymentEvent.name}`);
     }
