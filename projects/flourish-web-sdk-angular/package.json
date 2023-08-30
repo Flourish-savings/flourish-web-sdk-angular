@@ -1,6 +1,6 @@
 {
   "name": "flourish-web-sdk-angular",
-  "version": "2.0.0",
+  "version": "2.0.0-12",
   "description": "Everything you need to know to start integrating your Angular application with Flourish",
   "author": {
     "name": "Flourish FI",
@@ -12,8 +12,8 @@
     "url": "https://github.com/Flourish-savings/flourish-web-sdk-angular"
   },
   "peerDependencies": {
-    "@angular/common": "^15.0.0",
-    "@angular/core": "^15.0.0"
+    "@angular/common": "^12.0.0",
+    "@angular/core": "^12.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
