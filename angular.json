@@ -39,6 +39,9 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
         }
       },
       "root": "projects/flourish-web-sdk-angular-example",
@@ -51,9 +54,7 @@
             "outputPath": "dist/flourish-web-sdk-angular-example",
             "index": "projects/flourish-web-sdk-angular-example/src/index.html",
             "main": "projects/flourish-web-sdk-angular-example/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": "projects/flourish-web-sdk-angular-example/src/polyfills.ts",
             "tsConfig": "projects/flourish-web-sdk-angular-example/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
