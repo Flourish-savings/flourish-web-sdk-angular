@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Endpoint } from "./utils/endpoint";
+import { APP_VERSION } from './utils/version';
 
 interface SignInResponse {
   message: string;
@@ -19,7 +20,8 @@ export class FlourishWebSdkAngularService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        Authorization: `Bearer ${accessToken}`
+        Authorization: `Bearer ${accessToken}`,
+        'Sdk-Version': APP_VERSION
       })
     };
 

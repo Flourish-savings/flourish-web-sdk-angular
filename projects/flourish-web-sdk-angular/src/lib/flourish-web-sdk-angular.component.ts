@@ -11,6 +11,7 @@ import { BackEvent } from './events/back-event';
 import { EventCreator } from './events/event-creator';
 import { RetryLoginEvent } from './events/retry-login-event';
 import { FlourishWebSdkAngularService } from './flourish-web-sdk-angular.service';
+import { APP_VERSION } from './utils/version';
 
 @Component({
   selector: 'flourish-web-sdk-angular',
@@ -43,7 +44,7 @@ export class FlourishWebSdkAngularComponent implements OnChanges {
     const accessToken = changes['accessToken'].currentValue;
 
     if (accessToken) {
-      this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${new Endpoint(this.environment, this.language).frontend}&token=${accessToken}`);
+      this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${new Endpoint(this.environment, this.language).frontend}&token=${accessToken}&sdk_version=${APP_VERSION}`);
     }
 
   }
