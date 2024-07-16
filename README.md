@@ -85,15 +85,22 @@ onTriviaFinishedEvent(triviaFinishedEvent: TriviaFinishedEvent): void {
     console.log(`Event data: ${JSON.stringify(triviaFinishedEvent.data)}`);
 }
 ```
-[Here](https://github.com/Flourish-savings/flourish-web-sdk-angular/tree/main/projects/flourish-web-sdk-angular/src/lib/events) you have all events we will return
+### Events to listen
+here you have all events we will return
 
-| Event name      | Description                                                                                                       |
-|-----------------|-------------------------------------------------------------------------------------------------------------------|
-| GoToAutoPayment | When you need to know when the user clicks to set up an automatic payment on our platform.                        |
-| GoToPayment     | When you need to know when the user clicks to set up a payment on our platform.                                   |
-| TriviaFinished  | When you need to know when the user finishes a Trivia game on our platform.                                       |
-| GoBack          | When you need to know when the user clicks on the back menu button on our platform.                               |
-| RetryLogin      | When you need to know when the accessToken has expired and you need to retrieve a new one on our platform.        |
+| Event name      | Description                                                                         |
+|-----------------|-------------------------------------------------------------------------------------|
+| BACK_BUTTON_PRESSED | When you need to know when the user clicks on the back menu button on our platform. |
+| HOME_BACK_BUTTON_PRESSED | When you need to know when the user clicks on the back menu button when on the home screen of our platform.           |
+| ONBOARDING_BACK_BUTTON_PRESSED | When you need to know when the user clicks on the back menu button when on the onboarding screen of our platform.           |
+| TRIVIA_GAME_FINISHED  | When you need to know when the user finishes a Trivia game on our platform.         |
+| TRIVIA_CLOSED  | When you need to know when the user closed the Trivia game on our platform.         |
+| REFERRAL_COPY          | When you need to know when the user copy the referral code to the clipboard area.   |
+| GIFT_CARD_COPY  | When you need to know when the user copy the Gift code to the clipboard area.       |
+| HOME_BANNER_ACTION      | When you need to know when the user clicks on the home banner.                      |
+| MISSION_ACTION     | When you need to know when the user clicks on a mission card                        |
+| ERROR      | When you need to know when a error happened.                                        |
+
 ## Example
 Inside this repository, you have an example app to show how to integrate with us:
 
