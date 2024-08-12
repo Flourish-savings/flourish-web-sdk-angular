@@ -52,6 +52,6 @@ export class Endpoint {
       langPath = '';
     }
 
-    return `${baseUrl}?lang=${langPath}`;
+    return `${baseUrl}/${langPath}`;
   }
 }

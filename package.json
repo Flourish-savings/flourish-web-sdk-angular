@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "sdkBuild": "ng build flourish-web-sdk-angular",
-    "sdkPublish": "ng build flourish-web-sdk-angular && cd dist/flourish-web-sdk-angular && npm adduser && npm publish"
+    "sdkPublish": "ng build flourish-web-sdk-angular && cd dist/flourish-web-sdk-angular && npm publish"
   },
   "private": true,
   "dependencies": {
@@ -22,7 +22,7 @@
     "@angular/platform-browser": "^12.0.0",
     "@angular/platform-browser-dynamic": "^12.0.0",
     "@angular/router": "^12.0.0",
-    "flourish-web-sdk-angular": "^1.1.0-12",
+    "flourish-web-sdk-angular": "^1.2.0-12",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

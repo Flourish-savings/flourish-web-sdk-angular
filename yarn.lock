@@ -3906,10 +3906,10 @@ flatten@^1.0.2:
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.3.tgz#c1283ac9f27b368abc1e36d1ff7b04501a30356b"
   integrity sha512-dVsPA/UwQ8+2uoFe5GHtiBMu48dWLTdsuEd7CKGlZlD78r1TTWBvDuFaFGKCo/ZfEr95Uk56vZoX86OsHkUeIg==
 
-flourish-web-sdk-angular@^1.1.0-12:
-  version "1.1.0-12"
-  resolved "https://registry.yarnpkg.com/flourish-web-sdk-angular/-/flourish-web-sdk-angular-1.1.0-12.tgz#e4ac97ffb0b3711411e52c3170e3957b6c6964c2"
-  integrity sha512-xXVO20MsVGvcckJYTFEF483Yofx4WcYGB2zdPHm3YHL3eedU3Dl7oJ2vFfUNn7P8sDW++//VhO5coRf47sCESA==
+flourish-web-sdk-angular@^1.2.0-12:
+  version "1.2.0-12"
+  resolved "https://registry.yarnpkg.com/flourish-web-sdk-angular/-/flourish-web-sdk-angular-1.2.0-12.tgz#6e7be9d2c65a043bf9c991727eafb4788b3449e4"
+  integrity sha512-Po2ejL46pCo5G7nCPV3CFeNnkuuYkFwbEddMuIej0BVWRQnhKoGSITj0f2Non3xTo0XI8zxmMUf1PR4VXx1VQg==
   dependencies:
     tslib "^2.3.0"
 
