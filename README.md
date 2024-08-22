@@ -1,3 +1,11 @@
+***
+***
+# <span style="color:red">DEPRECATED</span>.
+## <span style="color:red">This library has been discontinued and now you should use this vanilla javascript lib instead:</span>
+
+### https://github.com/Flourish-savings/flourish-sdk-web
+***
+
 [<img width="400" src="https://github.com/Flourish-savings/flourish-web-sdk-angular/blob/main/images/logo_flourish.png?raw=true"/>](https://flourishfi.com)
 # Web SDK for Angular
 
