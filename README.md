@@ -1,5 +1,4 @@
-***
-***
+
 # <span style="color:red">DEPRECATED</span>.
 ## <span style="color:red">This library has been discontinued and now you should use this vanilla javascript lib instead:</span>
 
