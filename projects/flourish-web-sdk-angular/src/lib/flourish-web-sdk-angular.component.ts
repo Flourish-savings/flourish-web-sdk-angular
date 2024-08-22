@@ -43,7 +43,7 @@ export class FlourishWebSdkAngularComponent implements OnChanges {
     const accessToken = changes['accessToken'].currentValue;
 
     if (accessToken) {
-      this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${new Endpoint(this.environment, this.language).frontend}&token=${accessToken}`);
+      this.iframeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`${new Endpoint(this.environment, this.language).frontend}?token=${accessToken}`);
     }
 
   }
